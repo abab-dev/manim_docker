@@ -15,17 +15,17 @@ The pipeline works as follows:
 
 ## Components
 
-*   **FastAPI Backend (`main.py`):**  Handles the code generation and rendering logic. It exposes endpoints for converting text descriptions to Manim code and downloading the resulting video.
-*   **Streamlit Frontend (`frontend/streamlit_app.py`):** Provides a user interface for submitting text descriptions and viewing the generated animations.
-*   **Manim:** The core animation engine used to render the generated code.
+- **FastAPI Backend (`main.py`):** Handles the code generation and rendering logic. It exposes endpoints for converting text descriptions to Manim code and downloading the resulting video.
+- **Streamlit Frontend (`frontend/streamlit_app.py`):** Provides a user interface for submitting text descriptions and viewing the generated animations.
+- **Manim:** The core animation engine used to render the generated code.
 
 ## Setup
 
 ### Prerequisites
 
-*   Python 3.9+
-*   Poetry
-*   FFmpeg
+- Python 3.9+
+- Poetry
+- FFmpeg
 
 ### Backend Setup
 
@@ -37,10 +37,11 @@ The backend is a FastAPI application containerized using Docker. To run the back
     ```bash
     docker build -t manim-backend .
     ```
+
 3.  Run the Docker container, exposing port 8000:
 
     ```bash
-    docker run -d -p 8000:8000 -e GOOGLE_API_KEY="YOUR_GEMINI_API_KEY" manim-backend
+    docker run -d -p 8000:8000 -e  manim-backend
     ```
 
     Replace `"YOUR_GEMINI_API_KEY"` with your actual Gemini API key.
@@ -83,12 +84,12 @@ The frontend is a Streamlit application managed by `uv`. To run the frontend:
 
 ## Configuration
 
-*   **`GOOGLE_API_KEY`:**  The API key for the Gemini language model.  This needs to be set in both the backend and the frontend.
-*   **`FASTAPI_URL`:**  The URL of the FastAPI backend.  This is configured in the frontend (`frontend/streamlit_app.py`).  The default value is `http://localhost:8000/convert/`.
-*   **`ARTIFACTS_DIR`:** The directory where the generated video files are stored on the backend (`main.py`). The default value is `/app/artifacts`.
+- **`GOOGLE_API_KEY`:** The API key for the Gemini language model. This needs to be set in both the backend and the frontend.
+- **`FASTAPI_URL`:** The URL of the FastAPI backend. This is configured in the frontend (`frontend/streamlit_app.py`). The default value is `http://localhost:8000/convert/`.
+- **`ARTIFACTS_DIR`:** The directory where the generated video files are stored on the backend (`main.py`). The default value is `/app/artifacts`.
 
 ## Notes
 
-*   Ensure that FFmpeg is installed and available in your system's PATH. Manim relies on FFmpeg for video encoding.
-*   The quality of the generated code depends on the clarity and detail of the text description provided.
-*   The first time you run the `streamlit_app.py`, it may take a few minutes to download the necessary dependencies.
+- Ensure that FFmpeg is installed and available in your system's PATH. Manim relies on FFmpeg for video encoding.
+- The quality of the generated code depends on the clarity and detail of the text description provided.
+- The first time you run the `streamlit_app.py`, it may take a few minutes to download the necessary dependencies.
