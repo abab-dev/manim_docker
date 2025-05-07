@@ -29,69 +29,45 @@ The pipeline works as follows:
 
 ### Backend Setup
 
+The backend is a FastAPI application containerized using Docker. To run the backend:
+
 1.  Navigate to the project root directory.
-2.  Create a virtual environment (optional but recommended):
+2.  Build the Docker image:
 
     ```bash
-    python -m venv .venv
-    source .venv/bin/activate
+    docker build -t manim-backend .
     ```
-3.  Install dependencies using Poetry:
+3.  Run the Docker container, exposing port 8000:
 
     ```bash
-    poetry install
-    ```
-4.  Activate the Poetry shell:
-
-    ```bash
-    poetry shell
-    ```
-5.  Set the `GOOGLE_API_KEY` environment variable:
-
-    ```bash
-    export GOOGLE_API_KEY="YOUR_GEMINI_API_KEY"
+    docker run -d -p 8000:8000 -e GOOGLE_API_KEY="YOUR_GEMINI_API_KEY" manim-backend
     ```
 
     Replace `"YOUR_GEMINI_API_KEY"` with your actual Gemini API key.
-6.  Run the FastAPI backend:
-
-    ```bash
-    python main.py
-    ```
 
 ### Frontend Setup
+
+The frontend is a Streamlit application managed by `uv`. To run the frontend:
 
 1.  Navigate to the `frontend` directory:
 
     ```bash
     cd frontend
     ```
-2.  Create a virtual environment (optional but recommended):
 
-    ```bash
-    python -m venv .venv
-    source .venv/bin/activate
-    ```
-3.  Install dependencies using Poetry:
-
-    ```bash
-    poetry install
-    ```
-4.  Activate the Poetry shell:
-
-    ```bash
-    poetry shell
-    ```
-5.  Set the `GOOGLE_API_KEY` environment variable in `frontend/streamlit_app.py`:
+2.  Set the `GOOGLE_API_KEY` environment variable in `frontend/streamlit_app.py`:
 
     ```python
     GOOGLE_API_KEY = "YOUR_GEMINI_API_KEY"
     ```
 
     Replace `"YOUR_GEMINI_API_KEY"` with your actual Gemini API key.
-6.  Run the Streamlit frontend:
+
+3.  Run the Streamlit frontend using `uv`:
 
     ```bash
+    uv venv .venv
+    source .venv/bin/activate
     streamlit run streamlit_app.py
     ```
 
