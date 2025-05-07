@@ -4,7 +4,7 @@ import re
 import subprocess
 import uuid
 
-from fastapi import FastAPI, Form, UploadFile
+from fastapi import FastAPI, Form
 from fastapi.responses import FileResponse, StreamingResponse
 
 app = FastAPI()
@@ -13,14 +13,14 @@ os.makedirs(ARTIFACTS_DIR, exist_ok=True)
 
 
 @app.post("/convert/")
-async def convert_stream(scene_name: str = Form(...), file: UploadFile = Form(...)):
+async def convert_stream(scene_name: str = Form(...), code: str = Form(...)):
     job_id = str(uuid.uuid4())
     job_dir = os.path.join(ARTIFACTS_DIR, job_id)
     os.makedirs(job_dir, exist_ok=True)
 
-    input_path = os.path.join(job_dir, file.filename)
-    with open(input_path, "wb") as f:
-        f.write(await file.read())
+    input_path = os.path.join(job_dir, "input.py")  # Fixed input filename
+    with open(input_path, "w") as f:
+        f.write(code)
 
     async def log_generator():
         process = await asyncio.create_subprocess_exec(

@@ -2,7 +2,7 @@
 FROM manimcommunity/manim:stable
 
 # Install FastAPI, uvicorn, and python-multipart using the correct Python environment
-RUN python -m pip install --no-cache-dir fastapi uvicorn python-multipart
+RUN python -m pip install --no-cache-dir fastapi uvicorn python-multipart streamlit google-generativeai
 
 WORKDIR /app
 
